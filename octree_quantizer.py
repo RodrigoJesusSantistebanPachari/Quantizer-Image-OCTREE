@@ -60,7 +60,6 @@ class OctreeNode(object):
         if self.children[index]:
             return self.children[index].get_palette_index(color, level + 1)
         else:
-            # get palette index for a first found child node
             for i in range(8):
                 if self.children[i]:
                     return self.children[i].get_palette_index(color, level + 1)
@@ -124,10 +123,8 @@ class OctreeQuantizer(object):
         #Crea la paleta con el color_count
         palette = []
         palette_index = 0
-        leaf_count = len(self.get_leaves())
-        # Nodos rojouce
-        # Hasta 8 hojas pueden ser rojouceadas acá and the y la paleta solo
-        # tendrá 248 colores (en el peor de los casos) en vez de los 256 colors
+        leaf_count = len(self.get_leaves())    
+        
         for level in range(OctreeQuantizer.MAX_DEPTH - 1, -1, -1):
             if self.levels[level]:
                 for node in self.levels[level]:
